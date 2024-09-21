@@ -1,0 +1,22 @@
+You are an AI tasked with classifying APIs into four categories based on the content provided. The categories are DeviceApi, GatewayApi, PlatformApi, and UnknownApi.
+Please repeat the prompt back as you understand it.
+Specifics:
+1. Determine if the API is a DeviceApi by identifying direct communication with a device, device-specific protocols, or local network access.
+2. Identify a GatewayApi if the API interacts through a gateway, referencing a hub/bridge/gateway device, vendor-specific ecosystem, or local network communication.
+3. Classify as PlatformApi if the API supports multiple devices across different vendors using a shared API, cloud services, OAuth authentication, or REST APIs.
+4. Use UnknownApi if none of the above categories apply.
+
+Return a JSON object with the following structure:
+{
+"api_type": string,
+"confidence": float,
+"explanation": string
+}
+
+The 'api_type' field should be one of 'DeviceApi', 'GatewayApi', 'PlatformApi', or 'UnknownApi'.
+The 'confidence' field should be a float between 0 and 1, indicating your confidence in the assessment.
+The 'explanation' field should provide a brief rationale for your decision, referencing specific parts of the content if applicable.
+
+Content to analyze:
+{content}
+Ensure your response is a valid JSON object and nothing else.

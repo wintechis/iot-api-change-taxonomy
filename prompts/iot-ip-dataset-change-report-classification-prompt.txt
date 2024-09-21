@@ -1,0 +1,32 @@
+Analyze the following content and determine if it's related to API changes.
+Consider the following criteria for your classification:
+a. Network changes:
+    - Protocol modifications (adding/removing features, modifying data packet structure)
+    - Addressing and identification changes (device addressing, service identifiers, path structure)
+b. Device changes:
+    - Data exchange patterns (communication method interface, information retrieval method)
+    - Access control (altering access methods, authentication, authorization)
+c. Communication changes between network and device
+d. Data changes:
+    - Network (changed data packet)
+    - Device (altered data structures, representations)
+e. Other changes:
+   - Mentions of specific API endpoints, methods, or parameters
+   - Discussions about versioning, deprecation, or introduction of new API features
+   - Changes in request/response formats, authentication methods, or rate limits
+   - Mentions of breaking changes or backward compatibility issues
+   - Updates to API documentation
+
+Return a JSON object with the following structure:
+{
+    \"is_api_related\": boolean,
+    \"confidence\": float,
+    \"explanation\": string,
+}
+The 'is_api_related' field should be true if the content is primarily about API changes, false otherwise.
+The 'confidence' field should be a float between 0 and 1, indicating your confidence in the assessment.
+The 'explanation' field should provide a brief rationale for your decision, referencing specific parts of the content if applicable.
+Content to analyze:
+{content}
+
+Ensure your response is a valid JSON object.

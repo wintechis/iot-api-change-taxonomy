@@ -1,0 +1,252 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ex:   <http://example.org/iot-api-taxonomy#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+# Top-Level Class
+#################################################################
+
+ex:IoTAPIModification a rdfs:Class ;
+    rdfs:label "IoT API Modification" ;
+    skos:definition "Intentional changes made to the structure, behavior, or properties of an Internet of Things (IoT) Application Programming Interface (API) to meet evolving requirements, enhance functionality, or resolve issues. These modifications apply across various IoT stacks and communication protocols, not limited to web-based systems." ;
+    dcterms:creator "Fraunhofer IIS" ;
+    dcterms:created "2024-19-09" ;
+    owl:versionInfo "1.0" .
+
+#################################################################
+# Data Payload Modifications
+#################################################################
+
+ex:DataPayloadModification a rdfs:Class ;
+    rdfs:label "Data Payload Modification" ;
+    skos:definition "Changes to the structure, format, or content of the data exchanged between IoT devices and systems through the API, applicable to diverse IoT communication methods." ;
+    rdfs:subClassOf ex:IoTAPIModification .
+
+# Modify Data Payload Format
+ex:ModifyDataPayloadFormat a rdfs:Class ;
+    rdfs:label "Modify Data Payload Format" ;
+    skos:definition "Changing the serialization or encoding format used for the payload data." ;
+    skos:example "Switching from a proprietary binary format to Protocol Buffers (Protobuf) to improve cross-platform compatibility between devices from different manufacturers." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Data Type
+ex:ModifyDataType a rdfs:Class ;
+    rdfs:label "Modify Data Type" ;
+    skos:definition "Altering the data type of specific fields within the payload." ;
+    skos:example "Changing sensor data from 16-bit integers to 32-bit floating-point numbers to accommodate higher precision measurements in industrial IoT applications." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Structure of Payload
+ex:ModifyPayloadStructure a rdfs:Class ;
+    rdfs:label "Modify Structure of Payload" ;
+    skos:definition "Restructuring the organization or schema of data elements within the payload." ;
+    skos:example "Redesigning a payload in a Zigbee network to include nested clusters for efficient grouping of related device attributes." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Encoding of Payload
+ex:ModifyPayloadEncoding a rdfs:Class ;
+    rdfs:label "Modify Encoding of Payload" ;
+    skos:definition "Altering the character or data encoding scheme used for the payload." ;
+    skos:example "Changing from ASCII to UTF-16 encoding to support a wider range of characters in internationalized smart city applications." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Payload Compression
+ex:ModifyPayloadCompression a rdfs:Class ;
+    rdfs:label "Modify Payload Compression" ;
+    skos:definition "Changing the compression algorithm or method used to reduce payload size." ;
+    skos:example "Implementing LZ4 compression instead of GZIP in LoRaWAN networks to decrease transmission time and conserve energy in battery-powered sensors." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Consumed Data Payload
+ex:ModifyConsumedDataPayload a rdfs:Class ;
+    rdfs:label "Modify Consumed Data Payload" ;
+    skos:definition "Altering the structure or content of data that the API receives from devices." ;
+    skos:example "Adding a new field for GPS coordinates in data sent by autonomous drones to include location information alongside sensor readings." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+# Modify Produced Data Payload
+ex:ModifyProducedDataPayload a rdfs:Class ;
+    rdfs:label "Modify Produced Data Payload" ;
+    skos:definition "Changing the structure or content of data that the API sends to devices." ;
+    skos:example "Including predictive maintenance alerts in data transmitted to industrial machines to preempt equipment failures." ;
+    rdfs:subClassOf ex:DataPayloadModification .
+
+#################################################################
+# Communication Protocol Modifications
+#################################################################
+
+ex:CommunicationProtocolModification a rdfs:Class ;
+    rdfs:label "Communication Protocol Modification" ;
+    skos:definition "Changes to the communication protocols or technologies used for data exchange between IoT devices and systems, covering a variety of IoT-specific protocols." ;
+    rdfs:subClassOf ex:IoTAPIModification .
+
+# Modify Protocol
+ex:ModifyProtocol a rdfs:Class ;
+    rdfs:label "Modify Protocol" ;
+    skos:definition "Replacing the communication protocol with a different one better suited to the application's requirements." ;
+    skos:example "Switching from Zigbee to Bluetooth Low Energy (BLE) to improve device interoperability and reduce power consumption in wearable health monitors." ;
+    rdfs:subClassOf ex:CommunicationProtocolModification .
+
+# Modify Protocol Version
+ex:ModifyProtocolVersion a rdfs:Class ;
+    rdfs:label "Modify Protocol Version" ;
+    skos:definition "Updating to a newer version of the same protocol to leverage improvements." ;
+    skos:example "Upgrading from Bluetooth 4.2 to Bluetooth 5.0 to benefit from increased range and data transfer rates in smart home lighting systems." ;
+    rdfs:subClassOf ex:CommunicationProtocolModification .
+
+# Add Protocol Feature
+ex:AddProtocolFeature a rdfs:Class ;
+    rdfs:label "Add Protocol Feature" ;
+    skos:definition "Enabling additional features or extensions within the existing protocol." ;
+    skos:example "Implementing mesh networking capabilities in a Thread protocol to enhance connectivity in a home automation system." ;
+    rdfs:subClassOf ex:CommunicationProtocolModification .
+
+#################################################################
+# API Endpoint Modifications
+#################################################################
+
+ex:APIEndpointModification a rdfs:Class ;
+    rdfs:label "API Endpoint Modification" ;
+    skos:definition "Changes to the access points or interfaces through which IoT devices interact with the API, applicable across various IoT communication methods beyond web URLs." ;
+    rdfs:subClassOf ex:IoTAPIModification .
+
+# Add Endpoint
+ex:AddEndpoint a rdfs:Class ;
+    rdfs:label "Add Endpoint" ;
+    skos:definition "Introducing a new interface or command for additional functionalities." ;
+    skos:example "Adding a new function code in a Modbus protocol implementation to support remote device diagnostics in industrial equipment." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Remove Endpoint
+ex:RemoveEndpoint a rdfs:Class ;
+    rdfs:label "Remove Endpoint" ;
+    skos:definition "Eliminating an existing interface or command from the API." ;
+    skos:example "Removing an outdated CAN bus message identifier no longer used in vehicle telemetry systems." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Rename Endpoint
+ex:RenameEndpoint a rdfs:Class ;
+    rdfs:label "Rename Endpoint" ;
+    skos:definition "Changing the identifier or name of an existing interface or command." ;
+    skos:example "Renaming a CoAP resource from `/sensor/old_data` to `/sensor/current_data` to reflect updated functionality." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Relocate Endpoint
+ex:RelocateEndpoint a rdfs:Class ;
+    rdfs:label "Relocate Endpoint" ;
+    skos:definition "Moving an interface or command to a different address or identifier within the API structure." ;
+    skos:example "Changing the address of a BACnet object in a building automation system to align with a new device numbering scheme." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Split Endpoint
+ex:SplitEndpoint a rdfs:Class ;
+    rdfs:label "Split Endpoint" ;
+    skos:definition "Dividing a single interface or command into multiple ones offering more specific functionalities." ;
+    skos:example "Splitting a general control command into separate start, stop, and pause commands in an OPC UA server managing manufacturing robots." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Combine Endpoint
+ex:CombineEndpoint a rdfs:Class ;
+    rdfs:label "Combine Endpoint" ;
+    skos:definition "Merging multiple interfaces or commands into a single one that consolidates their functionalities." ;
+    skos:example "Combining separate read and write operations into a single read/write command in a custom device protocol to simplify interactions." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+# Modify Access Method to Endpoint
+ex:ModifyAccessMethodToEndpoint a rdfs:Class ;
+    rdfs:label "Modify Access Method to Endpoint" ;
+    skos:definition "Changing the method or operation code used to interact with an interface or command." ;
+    skos:example "Altering a command in a Zigbee network from unicast to broadcast to efficiently send updates to all devices in a group." ;
+    rdfs:subClassOf ex:APIEndpointModification .
+
+#################################################################
+# Security Modifications
+#################################################################
+
+ex:SecurityModification a rdfs:Class ;
+    rdfs:label "Security Modification" ;
+    skos:definition "Changes to the authentication, authorization, and encryption mechanisms of the API, applicable across various IoT technologies and protocols." ;
+    rdfs:subClassOf ex:IoTAPIModification .
+
+# Modify Authentication Method
+ex:ModifyAuthenticationMethod a rdfs:Class ;
+    rdfs:label "Modify Authentication Method" ;
+    skos:definition "Changing how devices or users are authenticated within the system." ;
+    skos:example "Implementing mutual authentication using X.509 certificates in devices that previously relied on simple pre-shared keys." ;
+    rdfs:subClassOf ex:SecurityModification .
+
+# Modify Authorization Method
+ex:ModifyAuthorizationMethod a rdfs:Class ;
+    rdfs:label "Modify Authorization Method" ;
+    skos:definition "Changing how access rights and permissions are managed for authenticated entities." ;
+    skos:example "Introducing role-based access control (RBAC) in an industrial control system to provide granular permissions based on user roles." ;
+    rdfs:subClassOf ex:SecurityModification .
+
+# Modify Encryption
+ex:ModifyEncryption a rdfs:Class ;
+    rdfs:label "Modify Encryption" ;
+    skos:definition "Updating the encryption algorithms or protocols used to secure data transmission." ;
+    skos:example "Upgrading from AES-128 to AES-256 encryption in wireless sensor networks to enhance data security against potential threats." ;
+    rdfs:subClassOf ex:SecurityModification .
+
+#################################################################
+# Parameter Modifications
+#################################################################
+
+ex:ParameterModification a rdfs:Class ;
+    rdfs:label "Parameter Modification" ;
+    skos:definition "Changes to the input and output parameters of API methods or commands across different IoT protocols and devices." ;
+    rdfs:subClassOf ex:IoTAPIModification .
+
+# Add Parameter
+ex:AddParameter a rdfs:Class ;
+    rdfs:label "Add Parameter" ;
+    skos:definition "Introducing a new parameter to a method or command." ;
+    skos:example "Adding a `quality_of_service` parameter in MQTT messages to allow devices to specify the reliability level of message delivery." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Remove Parameter
+ex:RemoveParameter a rdfs:Class ;
+    rdfs:label "Remove Parameter" ;
+    skos:definition "Eliminating an existing parameter from a method or command." ;
+    skos:example "Removing a `redundancy` parameter that is no longer needed due to improved network stability in a mesh network." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Rename Parameter
+ex:RenameParameter a rdfs:Class ;
+    rdfs:label "Rename Parameter" ;
+    skos:definition "Changing the name of a parameter without altering its functionality." ;
+    skos:example "Renaming a parameter from `temp_reading` to `temperature_value` for consistency across different devices in a sensor network." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Modify Parameter Upper Bound
+ex:ModifyParameterUpperBound a rdfs:Class ;
+    rdfs:label "Modify Parameter Upper Bound" ;
+    skos:definition "Changing the maximum allowable value for a numeric parameter." ;
+    skos:example "Increasing the upper limit of a `data_rate` parameter from 1 Mbps to 2 Mbps to support higher bandwidth requirements in video surveillance systems." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Modify Parameter Lower Bound
+ex:ModifyParameterLowerBound a rdfs:Class ;
+    rdfs:label "Modify Parameter Lower Bound" ;
+    skos:definition "Changing the minimum allowable value for a numeric parameter." ;
+    skos:example "Decreasing the minimum value of a `signal_threshold` parameter in a wireless communication system to improve connectivity in areas with weak signals." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Modify Default Value of Parameter
+ex:ModifyDefaultValueOfParameter a rdfs:Class ;
+    rdfs:label "Modify Default Value of Parameter" ;
+    skos:definition "Changing the default value assigned to a parameter when not specified by the client." ;
+    skos:example "Adjusting the default `power_mode` from `active` to `sleep` in battery-powered IoT devices to extend battery life when idle." ;
+    rdfs:subClassOf ex:ParameterModification .
+
+# Reorder Parameter
+ex:ReorderParameter a rdfs:Class ;
+    rdfs:label "Reorder Parameter" ;
+    skos:definition "Changing the sequence in which parameters are expected or processed in a method or command." ;
+    skos:example "Rearranging parameters in a Modbus function code to align with updated protocol standards for better interoperability." ;
+    rdfs:subClassOf ex:ParameterModification .
+
