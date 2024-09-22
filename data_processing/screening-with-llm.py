@@ -15,7 +15,7 @@ load_dotenv()
 INPUT_FILE_PATH: str = "../interim/home_assistant_search_results.json"
 OUTPUT_FILE_PATH: str = "home_assistant_api_analysis_results_updated.json"
 OPENAI_API_KEY: str = os.getenv("OPENAI_KEY")
-OPENAI_MODEL: str = "gpt-4o-mini-2024-07-18"
+OPENAI_MODEL: str = "gpt-4o-2024-08-06"
 LLM_PROMPT: str = """
 Analyze the following content and determine if it's related to API changes.
 Consider the following criteria for your classification:
@@ -55,22 +55,28 @@ Ensure your response is a valid JSON object.
 # Initialize OpenAI client
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
 
+
 class Comment(BaseModel):
     """Represents a comment in an issue."""
+
     id: int
     body: str
     created_at: datetime
     updated_at: datetime
     user: str
 
+
 class Match(BaseModel):
     """Represents a match in search results."""
+
     type: str
     matched_term: str
     score: float
 
+
 class SearchResultItem(BaseModel):
     """Represents an individual search result item."""
+
     issue_number: int
     issue_title: str
     issue_body: Optional[str]
@@ -81,30 +87,41 @@ class SearchResultItem(BaseModel):
     matches: List[Match]
     comments: List[Comment]
 
+
 class SearchResults(BaseModel):
     """Represents the overall search results."""
+
     search_results: List[SearchResultItem] = Field(..., alias="search_results")
+
 
 class SpecificChange(BaseModel):
     """Represents a specific API change."""
+
     category: str
     subcategory: str
     description: str
 
+
 class APIChangeAnalysisResult(BaseModel):
     """Represents the result of API change analysis."""
+
     is_api_related: bool
-    confidence: float = Field(description="Confidence in the assessment, between 0 and 1")
+    confidence: float = Field(
+        description="Confidence in the assessment, between 0 and 1"
+    )
     explanation: str
     categories: List[str]
     specific_changes: List[SpecificChange]
 
+
 class AnalysisRecord(BaseModel):
     """Represents a complete analysis record for an issue."""
+
     issue_number: int
     issue_title: str
     analysis_result: APIChangeAnalysisResult
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
 
 def read_search_results(file_path: str) -> SearchResults:
     """
@@ -116,9 +133,10 @@ def read_search_results(file_path: str) -> SearchResults:
     Returns:
         SearchResults: Parsed search results.
     """
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         data = json.load(file)
         return SearchResults(**data)
+
 
 def analyze_content(content: str) -> APIChangeAnalysisResult:
     """
@@ -134,8 +152,11 @@ def analyze_content(content: str) -> APIChangeAnalysisResult:
     response = openai_client.beta.chat.completions.parse(
         model=OPENAI_MODEL,
         messages=[
-            {"role": "system", "content": "You are an AI assistant specialized in analyzing software development discussions, particularly those related to API changes. Your task is to accurately determine if the given content is about API changes and provide a structured analysis."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "system",
+                "content": "You are an AI assistant specialized in analyzing software development discussions, particularly those related to API changes. Your task is to accurately determine if the given content is about API changes and provide a structured analysis.",
+            },
+            {"role": "user", "content": prompt},
         ],
         temperature=0.0,
         response_format=APIChangeAnalysisResult,
@@ -143,6 +164,7 @@ def analyze_content(content: str) -> APIChangeAnalysisResult:
 
     result = json.loads(response.choices[0].message.content)
     return APIChangeAnalysisResult(**result)
+
 
 def load_existing_results(file_path: str) -> Dict[int, AnalysisRecord]:
     """
@@ -155,10 +177,11 @@ def load_existing_results(file_path: str) -> Dict[int, AnalysisRecord]:
         Dict[int, AnalysisRecord]: A dictionary of existing analysis records, keyed by issue number.
     """
     if os.path.exists(file_path):
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             data = json.load(file)
-            return {record['issue_number']: AnalysisRecord(**record) for record in data}
+            return {record["issue_number"]: AnalysisRecord(**record) for record in data}
     return {}
+
 
 def save_result(record: AnalysisRecord, file_path: str):
     """
@@ -170,9 +193,15 @@ def save_result(record: AnalysisRecord, file_path: str):
     """
     existing_results = load_existing_results(file_path)
     existing_results[record.issue_number] = record
-    
-    with open(file_path, 'w') as file:
-        json.dump([record.dict() for record in existing_results.values()], file, default=str, indent=2)
+
+    with open(file_path, "w") as file:
+        json.dump(
+            [record.dict() for record in existing_results.values()],
+            file,
+            default=str,
+            indent=2,
+        )
+
 
 def process_search_result(result: SearchResultItem) -> str:
     """
@@ -184,10 +213,13 @@ def process_search_result(result: SearchResultItem) -> str:
     Returns:
         str: A formatted string containing the issue content for analysis.
     """
-    issue_content = f"Title: {result.issue_title}\n\nBody: {result.issue_body or ''}\n\nComments:\n"
+    issue_content = (
+        f"Title: {result.issue_title}\n\nBody: {result.issue_body or ''}\n\nComments:\n"
+    )
     for comment in result.comments:
         issue_content += f"{comment.user}: {comment.body}\n\n"
     return issue_content
+
 
 def analyze_and_save_result(result: SearchResultItem, output_file_path: str):
     """
@@ -199,15 +231,16 @@ def analyze_and_save_result(result: SearchResultItem, output_file_path: str):
     """
     issue_content = process_search_result(result)
     analysis = analyze_content(issue_content)
-    
+
     record = AnalysisRecord(
         issue_number=result.issue_number,
         issue_title=result.issue_title,
-        analysis_result=analysis
+        analysis_result=analysis,
     )
-    
+
     save_result(record, output_file_path)
     print_analysis_result(record)
+
 
 def print_analysis_result(record: AnalysisRecord):
     """
@@ -226,21 +259,25 @@ def print_analysis_result(record: AnalysisRecord):
     print(f"Result saved to {OUTPUT_FILE_PATH}")
     print("-" * 50)
 
+
 def main():
     """
     Main function to orchestrate the API analysis workflow.
     """
     search_results = read_search_results(INPUT_FILE_PATH)
     existing_results = load_existing_results(OUTPUT_FILE_PATH)
-    
+
     for result in search_results.search_results:
         if result.issue_number in existing_results:
-            print(f"Skipping analysis for Issue #{result.issue_number} (already analyzed)")
+            print(
+                f"Skipping analysis for Issue #{result.issue_number} (already analyzed)"
+            )
             continue
-        
+
         analyze_and_save_result(result, OUTPUT_FILE_PATH)
-    
+
     print(f"All results saved to {OUTPUT_FILE_PATH}")
+
 
 if __name__ == "__main__":
     main()
