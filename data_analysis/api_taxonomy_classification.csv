@@ -1,0 +1,35 @@
+IoT_taxonomy_class,issue_count
+IoT API Modifications,0
+Data Payload Modifications,0
+Modify Data Payload Format,5
+Modify Data Type,19
+Modify Structure of Payload,15
+Modify Encoding of Payload,14
+Modify Payload Compression,0
+Modify Consumed Data Payload,45
+Modify Produced Data Payload,40
+Communication Protocol Modifications,0
+Modify Protocol,24
+Modify Protocol Version,25
+Add Protocol Feature,3
+API Endpoint Modifications,0
+Add Endpoint,127
+Remove Endpoint,55
+Rename Endpoint,15
+Relocate Endpoint,11
+Split Endpoint,5
+Combine Endpoint,0
+Modify Access Method to Endpoint,10
+Security Modifications,0
+Modify Authentication Method,56
+Modify Authorization Method,10
+Modify Encryption,8
+Modify Access Control Policy,0
+Parameter Modifications,0
+Add Parameter,68
+Remove Parameter,27
+Rename Parameter,21
+Modify Parameter Upper Bound,5
+Modify Parameter Lower Bound,6
+Modify Default Value of Parameter,18
+Reorder Parameter,1

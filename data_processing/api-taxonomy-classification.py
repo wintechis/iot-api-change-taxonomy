@@ -52,6 +52,9 @@ Use the following taxonomy and requirements to classify the API change type, and
     * Add Protocol Feature:
         * Definition: Enabling additional features or extensions within the existing protocol.
         * Example: Implementing mesh networking capabilities in a Thread protocol to enhance connectivity in a home automation system.
+    * Remove Protocol Feature:
+        * Definition: Disabling additional features or extensions within the existing protocol.
+        * Example: Removing mesh networking capabilities in a Thread protocol to reduce complexity in a home automation system.
 
 * API Endpoint Modifications: Changes to the access points or interfaces through which IoT devices interact with the API, applicable across various IoT communication methods beyond web URLs.
     * Add Endpoint:

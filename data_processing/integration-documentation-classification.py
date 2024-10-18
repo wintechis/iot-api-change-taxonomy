@@ -12,7 +12,7 @@ load_dotenv()
 
 # Constants
 OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL: str = "gpt-4o-mini-2024-07-18"
+OPENAI_MODEL: str = "gpt-4o-2024-08-06"
 INPUT_FILE_PATH: str = (
     "../datasets/interim/iot_integrations_filtered.json"  # Replace with actual input file path
 )

@@ -104,6 +104,11 @@ ex:AddProtocolFeature a rdfs:Class ;
     skos:example "Implementing mesh networking capabilities in a Thread protocol to enhance connectivity in a home automation system." ;
     rdfs:subClassOf ex:CommunicationProtocolModification .
 
+ex:RemoveProtocolFeature a rdfs:Class ;
+    rdfs:label "Remove Protocol Feature" ;
+    skos:definition "Disabling features or extensions within the existing protocol." ;
+    skos:example "Removing mesh networking capabilities in a Thread protocol to reduce complexity in a home automation system." ;
+    rdfs:subClassOf ex:CommunicationProtocolModification .
 #################################################################
 # API Endpoint Modifications
 #################################################################
